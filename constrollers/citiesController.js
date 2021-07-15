@@ -7,7 +7,7 @@ const getAllCities = (req, res, next) => {
   res.send(cities);
 };
 
-const getCityById = (req, res, next) => {
+const getRestaurantByCityId = (req, res, next) => {
   const { id } = req.params;
 
   const city = {
@@ -42,7 +42,7 @@ const createNewCity = (req, res, next) => {
 };
 
 module.exports = {
-  getCityById,
+  getRestaurantByCityId,
   getAllCities,
   createNewCity,
 };

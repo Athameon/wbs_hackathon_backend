@@ -17,7 +17,7 @@ const getAllTags = (req, res, next) => {
   res.send(tags);
 };
 
-const getTagById = (req, res, next) => {
+const getRestaurantByTagId = (req, res, next) => {
   const { id } = req.params;
 
   const tag = {
@@ -52,7 +52,7 @@ const createNewTag = (req, res, next) => {
 };
 
 module.exports = {
-  getTagById,
+  getRestaurantByTagId,
   getAllTags,
   createNewTag,
 };
