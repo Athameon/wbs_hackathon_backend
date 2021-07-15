@@ -22,7 +22,24 @@ const getTagById = (req, res, next) => {
 
   const tag = {
     id: 1,
-    tag: "nict",
+    name: "Burger Fries",
+    pos: [9.784575, 7.89658],
+    tags: [
+      { id: "1", tag: "nict" },
+      { id: "3", tag: "veggy" },
+    ],
+    city: { id: 23, name: "Hamburg" },
+    comments: [
+      {
+        id: 56,
+        name: "Jugesh",
+        rating: 2,
+        comment: "To fast not good",
+      },
+    ],
+    avRating: 2,
+    picture:
+      "https://media-cdn.tripadvisor.com/media/photo-s/01/e6/aa/f2/schloss-steinburg.jpg",
   };
 
   res.send(tag);

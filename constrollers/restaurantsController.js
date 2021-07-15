@@ -20,6 +20,8 @@ const getAllRestaurants = (req, res, next) => {
         },
       ],
       avRating: 2,
+      picture:
+        "https://media-cdn.tripadvisor.com/media/photo-s/14/f3/ef/29/innenbereich.jpg",
     },
     {
       id: 2,
@@ -45,6 +47,8 @@ const getAllRestaurants = (req, res, next) => {
         },
       ],
       avRating: 3.5,
+      picture:
+        "https://media-cdn.tripadvisor.com/media/photo-s/01/e6/aa/f2/schloss-steinburg.jpg",
     },
   ];
 
@@ -71,6 +75,8 @@ const getRestaurantById = (req, res, next) => {
       },
     ],
     avRating: 2,
+    picture:
+      "https://media-cdn.tripadvisor.com/media/photo-s/14/f3/ef/29/innenbereich.jpg",
   };
   res.send(restaurant);
 };
