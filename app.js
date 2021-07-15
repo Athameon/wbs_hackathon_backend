@@ -6,7 +6,9 @@ const logger = require("morgan");
 require("./db/client");
 
 const indexRouter = require("./routes/index");
-const usersRouter = require("./routes/users");
+const restaurantRouter = require("./routes/restaurants");
+const tagsRouter = require("./routes/tags");
+const citiesRouter = require("./routes/cities");
 
 const app = express();
 
@@ -17,6 +19,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
+app.use("/restaurants", restaurantRouter);
+app.use("/tags", tagsRouter);
+app.use("/cities", citiesRouter);
 
 module.exports = app;
