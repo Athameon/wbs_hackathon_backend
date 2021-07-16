@@ -2,7 +2,7 @@
 GET http://localhost:8000/tags
 
 ### GET tag by id
-GET http://localhost:8000/tags/2
+GET http://localhost:8000/tags/9
 
 ### Create new TAG
 

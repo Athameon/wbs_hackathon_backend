@@ -1,48 +1,49 @@
-const getAllTags = (req, res, next) => {
-  const tags = [
-    {
-      id: 1,
-      tag: "nict",
-    },
-    {
-      id: 2,
-      tag: "good",
-    },
-    {
-      id: 3,
-      tag: "fast",
-    },
-  ];
+const {
+  getRestaurantTags,
+  getRestaurantComments,
+  calculateAverageRating,
+} = require("../tools/restaurant");
+const { Pool } = require("pg");
+const pool = new Pool();
 
-  res.send(tags);
+const getAllTags = (req, res, next) => {
+  pool.query("SELECT * FROM tag;").then((result) => {
+    if (result.rows.length === 0) {
+      res.send("No tags are stored in the db.");
+    }
+    res.send(result.rows);
+  });
 };
 
-const getRestaurantByTagId = (req, res, next) => {
+const getRestaurantByTagId = async (req, res, next) => {
   const { id } = req.params;
 
-  const tag = {
-    id: 1,
-    name: "Burger Fries",
-    pos: [9.784575, 7.89658],
-    tags: [
-      { id: "1", tag: "nict" },
-      { id: "3", tag: "veggy" },
-    ],
-    city: { id: 23, name: "Hamburg" },
-    comments: [
-      {
-        id: 56,
-        name: "Jugesh",
-        rating: 2,
-        comment: "To fast not good",
-      },
-    ],
-    avRating: 2,
-    picture:
-      "https://media-cdn.tripadvisor.com/media/photo-s/01/e6/aa/f2/schloss-steinburg.jpg",
+  const restaurantQuery = {
+    text: `SELECT r.id, r.name as restaurant_name, r.lan, r.lat, r.description, r.picture, t.id_tag
+    FROM restaurant_has_tag t
+    JOIN restaurant r on r.id = t.id_restaurant
+    WHERE id_tag = $1 
+    ORDER BY r.id`,
+    values: [id],
   };
 
-  res.send(tag);
+  try {
+    const restaurantResult = await pool.query(restaurantQuery);
+    if (restaurantResult.rows.length === 0) {
+      return res.status(404).send("No restaurants are stored in the db.");
+    }
+    const restaurants = restaurantResult.rows;
+    await Promise.all([
+      getRestaurantTags(restaurants),
+      getRestaurantComments(restaurants),
+    ]);
+    calculateAverageRating(restaurants);
+
+    res.send(restaurants);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error.message);
+  }
 };
 
 const createNewTag = (req, res, next) => {
