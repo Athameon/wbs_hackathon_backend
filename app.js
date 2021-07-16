@@ -9,6 +9,7 @@ const indexRouter = require("./routes/index");
 const restaurantRouter = require("./routes/restaurants");
 const tagsRouter = require("./routes/tags");
 const citiesRouter = require("./routes/cities");
+const searchRouter = require("./routes/search");
 
 const app = express();
 
@@ -23,5 +24,6 @@ app.use("/", indexRouter);
 app.use("/restaurants", restaurantRouter);
 app.use("/tags", tagsRouter);
 app.use("/cities", citiesRouter);
+app.use("/search", searchRouter);
 
 module.exports = app;
