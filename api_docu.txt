@@ -1,0 +1,105 @@
+
+#GET https://wbs-hackathon-backend.herokuapp.com/restaurants/
+Gets all stored restaurants as a array in following format:
+[
+    {
+        "id": 1,
+        "restaurant_name": "My Main Kebap",
+        "lan": 9.728999198604,
+        "lat": 52.3764461775546,
+        "description": "Mediterranean stop in the Columbia Mall serving lamb, beef & chicken kebabs, falafel & more.",
+        "city_id": 4,
+        "city_name": "Hannover",
+        "picture": "https://media-cdn.tripadvisor.com/media/photo-s/18/5e/17/62/restaurant.jpg",
+        "comments": [
+            {
+                "id": 5,
+                "text": "Nice People",
+                "name": "Danny",
+                "rating": 5,
+                "date": "2021-06-04T19:40:25.000Z",
+                "restaurant_id": 3
+            },
+            {
+                "id": 8,
+                "text": "Fast, Good, Cheap",
+                "name": "Ben",
+                "rating": 4,
+                "date": "2019-01-05T19:40:25.000Z",
+                "restaurant_id": 3
+            }
+        ],
+        "tags": [
+            {
+                "id": 4,
+                "name": "Vegetarian"
+            },
+            {
+                "id": 6,
+                "name": "Fast"
+            }
+        ],
+        "avRating": null
+    }
+]
+#GET https://wbs-hackathon-backend.herokuapp.com/restaurants/1
+Gets a single restaurant by id. => Format like get all restaurants.
+#POST https://wbs-hackathon-backend.herokuapp.com/restaurants/
+Create a new restaurant. Following format is required:
+{
+  "name": "Burger King XXL",
+  "lan": 9.784585,
+  "lat": 7.84658,
+  "tags": [ 5, 8 ],
+  "city": 6,
+  "description": "This is a default Burger King",
+  "picture": "https://qph.fs.quoracdn.net/main-qimg-730b69c7ec4dabdfc4cd3aac023154ca"
+}
+
+###
+#GET https://wbs-hackathon-backend.herokuapp.com/tags/
+Gets all stored tags from the db in following format:
+[
+    {
+        "id": 4,
+        "name": "Vegetarian"
+    },
+    {
+        "id": 5,
+        "name": "Luxerious"
+    }
+]
+#GET https://wbs-hackathon-backend.herokuapp.com/tags/4
+Gets all restaurants which have a tag with the given ID. The format is like get all restaurants (Array of Restaurants).
+#POST https://wbs-hackathon-backend.herokuapp.com/tags/
+Creates a new Tag. Following format is required:
+{
+  "tag": "vegetarian"
+}
+
+###
+#GET https://wbs-hackathon-backend.herokuapp.com/cities/
+Gets all cities from the db in following format:
+[
+    {
+        "id": 1,
+        "name": "Hamburg"
+    },
+    {
+        "id": 2,
+        "name": "Singen"
+    },
+]
+#GET https://wbs-hackathon-backend.herokuapp.com/cities/1
+Gets all restaurants which have the city ID with the given ID. The format is like get all restaurants (Array of Restaurants).
+#POST https://wbs-hackathon-backend.herokuapp.com/cities/
+Creates a new City. Following format is required:
+{
+  "name": "Wuerzburg 22"
+}
+
+###
+#GET https://wbs-hackathon-backend.herokuapp.com/search/<Key>
+Searches for the key in the name of the restaurants and the tags and returns a list of all found restaurants.
+The key is case insensitive.
+
