@@ -46,10 +46,25 @@ const getRestaurantByTagId = async (req, res, next) => {
   }
 };
 
-const createNewTag = (req, res, next) => {
-  console.log(req.body);
+const createNewTag = async (req, res, next) => {
+  const { tag } = req.body;
+  const createTagQuery = {
+    text: `INSERT INTO tag (name) values ($1) RETURNING *`,
+    values: [tag],
+  };
 
-  res.send(req.body);
+  try {
+    const createResult = await pool.query(createTagQuery);
+    console.log(createResult);
+    if (createResult.rowCount < 1) {
+      return res.status(404).send("Could not create the tag.");
+    }
+
+    res.send(createResult.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error.message);
+  }
 };
 
 module.exports = {

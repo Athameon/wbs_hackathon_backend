@@ -46,10 +46,25 @@ const getRestaurantByCityId = async (req, res, next) => {
   }
 };
 
-const createNewCity = (req, res, next) => {
-  console.log(req.body);
+const createNewCity = async (req, res, next) => {
+  const { name } = req.body;
+  const createTagQuery = {
+    text: `INSERT INTO city (name) values ($1) RETURNING *`,
+    values: [name],
+  };
 
-  res.send(req.body);
+  try {
+    const createResult = await pool.query(createTagQuery);
+    console.log(createResult);
+    if (createResult.rowCount < 1) {
+      return res.status(404).send("Could not create the city.");
+    }
+
+    res.send(createResult.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error.message);
+  }
 };
 
 module.exports = {

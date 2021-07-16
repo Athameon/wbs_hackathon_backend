@@ -10,5 +10,5 @@ POST http://localhost:8000/cities
 content-type: application/json
 
 {
-  "name": "Koeln"
+  "name": "Wuerzburg 22"
 }
