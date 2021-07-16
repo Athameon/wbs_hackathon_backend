@@ -64,10 +64,36 @@ const getRestaurantById = async (req, res, next) => {
   }
 };
 
-const createNewRestaurant = (req, res, next) => {
-  console.log(req.body);
+const createNewRestaurant = async (req, res, next) => {
+  const { name, city, description, lat, lan, picture, tags } = req.body;
 
-  res.send(req.body);
+  const createRestaurantQuery = {
+    text: `INSERT INTO restaurant (name, city_id, description, lat, lan, picture) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+    values: [name, city, description, lat, lan, picture],
+  };
+
+  try {
+    const createRestaurantResult = await pool.query(createRestaurantQuery);
+    const restaurantId = createRestaurantResult.rows[0].id;
+
+    tags.forEach(async (tag) => {
+      const createRestaurantTagQuery = {
+        text: `INSERT INTO restaurant_has_tag (id_restaurant, id_tag) VALUES ($1, $2) RETURNING *`,
+        values: [restaurantId, tag],
+      };
+      const createResult = await pool.query(createRestaurantTagQuery);
+      console.log(createResult.rows[0]);
+    });
+
+    if (createRestaurantResult.rowCount < 1) {
+      return res.status(404).send("Could not create the restaurant.");
+    }
+
+    res.send(createRestaurantResult.rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error.message);
+  }
 };
 
 module.exports = {

@@ -9,25 +9,11 @@ POST  http://localhost:8000/restaurants
 content-type: application/json
 
 {
-  "name": "Burger King",
-  "pos": [9.784585, 7.84658],
-  "tags": [ 5, 86 ],
-  "city": 41
-}
-
-### Create new User
-POST http://localhost:8000/users
-content-type: application/json
-{
-    "name": "Ben"
-}
-
-### Delete User
-DELETE http://localhost:8000/users/60efdd441d92df504d24172a
-
-### Update User
-PUT http://localhost:8000/users/60efdaa024031c4b60ed7ef3
-content-type: application/json
-{
-    "name": "Franz"
+  "name": "Burger King XXL",
+  "lan": 9.784585,
+  "lat": 7.84658,
+  "tags": [ 5, 8 ],
+  "city": 6,
+  "description": "This is a default Burger King",
+  "picture": "https://qph.fs.quoracdn.net/main-qimg-730b69c7ec4dabdfc4cd3aac023154ca"
 }
